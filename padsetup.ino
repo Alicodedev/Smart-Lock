@@ -31,10 +31,19 @@ void loop(){
     num = key - 48; // converts ascii number to decimal
     list[i] = num; // inital i will be in beginning of the list 0th index 
 
-    //condtion for outputing keypad input
-    if (key){
+    if (key == 'D'){ // reset condition
+        i = 0;
+        Serial.print("value of i in reset:");
+        Serial.println(i);
+        for(int x = 0; x < 3; x++){ // outputs each value inputed by keypad all contained in list
+            list[x] = 0;
+            
+            }
+        }
 
-      
+    //condtion for outputing keypad input
+    else if (key != 'D' && key){
+
         i++; // loop variable for incrementing each index of list 
         Serial.print("Key Pressed : ");
         Serial.println(key);
