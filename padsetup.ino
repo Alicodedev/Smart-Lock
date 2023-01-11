@@ -1,4 +1,9 @@
+#define SIZE 3
 #include <Keypad.h>
+
+int list [SIZE]= {};
+int num;
+int i = 0;
 
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
@@ -24,12 +29,27 @@ void setup(){
 void loop(){
     char key = keypad.getKey();// !Read the key
     num = key - 48; // converts ascii number to decimal
+    list[i] = num; // inital i will be in beginning of the list 0th index 
 
     //condtion for outputing keypad input
     if (key){
-        Serial.print("Key Pressed: ");
-        Serial.println(num);
-    
-        }
 
+      
+        i++; // loop variable for incrementing each index of list 
+        Serial.print("Key Pressed : ");
+        Serial.println(key);
+        
+        Serial.print("key value:");
+        Serial.println(num);
+        
+        Serial.print("value of i:");
+        Serial.println(i);
+
+        if(i == SIZE){ // has loop variable reached max list size
+        Serial.println("values in the list: ");
+        for(int x = 0; x < SIZE; x++){ // outputs each value inputed by keypad all contained in list
+            Serial.print(list[x]); // outputing on serial monitor in order
+            }
+        }
+  }
 }
