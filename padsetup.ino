@@ -22,12 +22,14 @@ void setup(){
 
   
 void loop(){
+    char key = keypad.getKey();// !Read the key
+    num = key - 48; // converts ascii number to decimal
 
-  //condtion for outputing keypad input
-  if (key){
-    Serial.print("Key Pressed: ");
-    Serial.println(key);
-  
-    }
+    //condtion for outputing keypad input
+    if (key){
+        Serial.print("Key Pressed: ");
+        Serial.println(num);
+    
+        }
 
 }
