@@ -4,6 +4,7 @@
 int list [SIZE]= {};
 int num;
 int i = 0;
+int password [3] = {1,2,3};
 
 const byte ROWS = 4; //four rows
 const byte COLS = 4; //four columns
@@ -58,6 +59,13 @@ void loop(){
         Serial.println("values in the list: ");
         for(int x = 0; x < SIZE; x++){ // outputs each value inputed by keypad all contained in list
             Serial.print(list[x]); // outputing on serial monitor in order
+
+             
+              if ( memcmp(list, password, sizeof(list)) == 0){// checks if each array index == key inputs
+                Serial.println("Correct PASSWORD");
+
+
+              }
             }
         }
   }
