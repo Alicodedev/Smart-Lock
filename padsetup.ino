@@ -1,4 +1,7 @@
 #define SIZE 3
+#define lock 7
+#define Red_led 8
+#define Green_led 9
 #include <Keypad.h>
 
 int list [SIZE]= {};
@@ -23,6 +26,10 @@ byte colPins[COLS] = {5, 4, 3, 2}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 void setup(){
+  int i = 0;
+  pinMode(lock,OUTPUT);// lock modulec
+  pinMode(Red_led,OUTPUT);// red led indicator
+  pinMode(Green_led,OUTPUT);// Green led indicator
   Serial.begin(9600);
 }
 
@@ -63,7 +70,16 @@ void loop(){
              
               if ( memcmp(list, password, sizeof(list)) == 0){// checks if each array index == key inputs
                 Serial.println("Correct PASSWORD");
-
+                digitalWrite(lock,HIGH);
+                digitalWrite(Green_led,HIGH);
+                digitalWrite(Red_led,LOW);
+                
+              else if (( memcmp(list, password, sizeof(list)) != 0)){
+                Serial.println("Incorrect PASSWORD");
+                digitalWrite(lock,LOW);
+                digitalWrite(Red_led,HIGH);
+                digitalWrite(Green_led,LOW);
+                }
 
               }
             }
