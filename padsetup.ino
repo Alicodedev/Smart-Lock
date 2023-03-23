@@ -6,7 +6,12 @@
 
 int list [SIZE]= {};
 int num;
+int failcount = 0;
+int blinkInterval = 500;
+int timerDuration = 10000;
 int i = 0;
+unsigned long currentTime = 0;
+
 int password [3] = {1,2,3};
 
 const byte ROWS = 4; //four rows
@@ -73,15 +78,29 @@ void loop(){
                 digitalWrite(lock,HIGH);
                 digitalWrite(Green_led,HIGH);
                 digitalWrite(Red_led,LOW);
-                
+
               else if (( memcmp(list, password, sizeof(list)) != 0)){
                 Serial.println("Incorrect PASSWORD");
                 digitalWrite(lock,LOW);
                 digitalWrite(Red_led,HIGH);
                 digitalWrite(Green_led,LOW);
-                }
 
-              }
+                failcount++;
+
+                if ( failcount == 9){ // 3 attempts failed 
+                    Serial.println("15min activated");
+                    currentTime = millis();
+                    while (millis() - currentTime < timerDuration) {
+                      // The code that runs during the timer
+                      digitalWrite(Red_led, HIGH);
+                      delay(blinkInterval);
+                      digitalWrite(Red_led, LOW);
+                      delay(blinkInterval);
+                      failcount = 0; //resets attempts
+                    }
+                 }
+
+               }
             }
         }
   }
